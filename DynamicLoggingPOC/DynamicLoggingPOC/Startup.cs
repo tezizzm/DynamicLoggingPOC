@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Steeltoe.Management.CloudFoundry;
 
 namespace DynamicLoggingPOC
 {
@@ -26,6 +27,8 @@ namespace DynamicLoggingPOC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            // CODE ADDED BELOW
+            services.AddCloudFoundryActuators(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +44,8 @@ namespace DynamicLoggingPOC
                 app.UseHsts();
             }
 
+            // CODE ADDED BELOW
+            app.UseCloudFoundryActuators();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Steeltoe.Extensions.Configuration.CloudFoundry;
 using Steeltoe.Extensions.Logging;
+using Steeltoe.Extensions.Logging.SerilogDynamicLogger;
 
 namespace DynamicLoggingPOC
 {
@@ -29,7 +30,7 @@ namespace DynamicLoggingPOC
                 .ConfigureLogging((builderContext, loggingBuilder) =>
                     {
                         loggingBuilder.AddConfiguration(builderContext.Configuration.GetSection("Logging"));
-                        loggingBuilder.AddDynamicConsole();
+                        loggingBuilder.AddSerilogDynamicConsole();
                     })
                 .UseStartup<Startup>();
     }
